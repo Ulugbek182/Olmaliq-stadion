@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚽ OLMALIQ STADION - Premium Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --danger-red: #e74c3c;
+            --admin-gold: #f1c40f;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://integralspor.com/assets/filemanager/200c60217abc6599765d48ca523220b3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Асосий контейнер - Glassmorphism эффекти */
+        .container {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 95%;
+            max-width: 1100px;
+            margin: 30px auto;
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            font-weight: 800;
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin: 0;
+            background: linear-gradient(to right, #2ecc71, #f1c40f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .admin-badge {
+            background: var(--admin-gold);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: bold;
+            display: none;
+            margin-bottom: 10px;
+            box-shadow: 0 0 15px var(--admin-gold);
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        select, input, .login-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        select option { background: #222; }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        select:focus, input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-green);
+        }
+
+        .login-btn {
+            background: var(--primary-green);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        /* Соатлар жадвали */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .slot {
+            padding: 25px 15px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .free {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: rgba(46, 204, 113, 0.3);
+        }
+
+        .free:hover {
+            background: rgba(46, 204, 113, 0.3);
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        .booked {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+
+        .admin-mode .booked { cursor: pointer; }
+        .admin-mode .booked:hover { background: rgba(231, 76, 60, 0.4); }
+
+        .time {
+            font-size: 24px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .status {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .info {
+            font-size: 13px;
+            margin-top: 15px;
+            color: var(--admin-gold);
+            font-weight: 500;
+            background: rgba(0,0,0,0.3);
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px dashed var(--glass-border);
+        }
+
+        .footer-note b {
+            color: var(--primary-green);
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        /* Мобиль учун */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h2 { font-size: 24px; }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body class="user-mode" id="bodyBody">
+
+    <div class="container">
+        <header>
+            <span id="adminBadge" class="admin-badge">⚡ ADMIN PANEL ON</span>
+            <h2>⚽ OLMALIQ STADION</h2>
+            <p style="opacity: 0.6; font-size: 12px; letter-spacing: 1px;">ЭНГ ЗЎР СТАДИОНЛАРДА ЎЗ ЎРНИНГИЗНИ БАНД ҚИЛИНГ</p>
+        </header>
+
+        <div class="controls">
+            <select id="stadiumSelect" onchange="loadSchedule()">
+                <script>
+                    for(let i=1; i<=10; i++) 
+                    document.write(`<option value="${i}">🏟 ${i}-Стадион</option>`)
+                </script>
+            </select>
+            <input type="date" id="dateSelect" onchange="loadSchedule()">
+            <button id="authBtn" class="login-btn" onclick="toggleAdmin()">🔑 Админ Кириш</button>
+        </div>
+
+        <div class="grid" id="scheduleGrid"></div>
+
+        <div class="footer-note" id="userNote">
+            📢 БРОН ҚИЛИШ УЧУН ТЕЛЕФОН: <br>
+            <b id="phoneNum">+998 93 793 11 55</b>
+        </div>
+    </div>
+
+    <script>
+        let isAdmin = false;
+        const ADMIN_PASSWORD = "1872"; 
+
+        document.getElementById('dateSelect').valueAsDate = new Date();
+
+        function toggleAdmin() {
+            if (!isAdmin) {
+                let pass = prompt("Админ паролини киритинг:");
+                if (pass === ADMIN_PASSWORD) {
+                    isAdmin = true;
+                    document.getElementById('bodyBody').classList.add("admin-mode");
+                    document.getElementById('adminBadge').style.display = "inline-block";
+                    document.getElementById('authBtn').innerText = "🚪 Чиқиш";
+                    document.getElementById('authBtn').style.background = "#555";
+                    alert("Хуш келибсиз, Админ!");
+                } else {
+                    alert("Парол хато!");
+                }
+            } else {
+                isAdmin = false;
+                document.getElementById('bodyBody').classList.remove("admin-mode");
+                document.getElementById('adminBadge').style.display = "none";
+                document.getElementById('authBtn').innerText = "🔑 Админ Кириш";
+                document.getElementById('authBtn').style.background = "#2ecc71";
+            }
+            loadSchedule();
+        }
+
+        function loadSchedule() {
+            const stadium = document.getElementById('stadiumSelect').value;
+            const date = document.getElementById('dateSelect').value;
+            const grid = document.getElementById('scheduleGrid');
+            grid.innerHTML = '';
+
+            if (!date) return;
+
+            for (let i = 1; i <= 24; i++) {
+                let time = i + ":00";
+                let key = `st_v2_${stadium}_${date}_${time}`;
+                let bookingInfo = localStorage.getItem(key);
+
+                let div = document.createElement('div');
+                div.className = 'slot ' + (bookingInfo ? 'booked' : 'free');
+
+                let html = `<span class="time">${time}</span>`;
+                html += `<span class="status">${bookingInfo ? '● БАНД' : '○ БЎШ'}</span>`;
+                
+                if (bookingInfo) {
+                    let displayInfo = isAdmin ? bookingInfo : "---";
+                    html += `<div class="info">👤 ${displayInfo}</div>`;
+                }
+
+                div.innerHTML = html;
+
+                div.onclick = () => {
+                    if (isAdmin) {
+                        if (bookingInfo) cancelBooking(key, time);
+                        else makeBooking(key, time);
+                    } else if (!bookingInfo) {
+                        alert("Бу вақт бўш. Брон қилиш учун телефон: +998 93 793 11 55");
+                    }
+                };
+
+                grid.appendChild(div);
+            }
+        }
+
+        function makeBooking(key, time) {
+            let info = prompt(`${time} га брон.\nИсм ва телефонни ёзинг:`);
+            if (info && info.trim() !== "") {
+                localStorage.setItem(key, info);
+                loadSchedule();
+            }
+        }
+
+        function cancelBooking(key, time) {
+            if (confirm(`${time} даги бронни бекор қиламизми?`)) {
+                localStorage.removeItem(key);
+                loadSchedule();
+            }
+        }
+
+        loadSchedule();
+    </script>
+</body>
+</html>
